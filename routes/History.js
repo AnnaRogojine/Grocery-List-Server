@@ -1,7 +1,7 @@
 const express = require('express');
 const {check, validationResult} = require('express-validator');
 
-const House = require('../models/House');
+const History = require('../models/History');
 
 const router = express.Router();
 
@@ -16,33 +16,34 @@ const validate = [
 
 // /api/houses
 router.post('/', validate, (req, res) => {
+    console.log("Hello");
 
-    const errors = validationResult(req);
+    // const errors = validationResult(req);
 
-    if(!errors.isEmpty()) {
-        return res.status(422).send({errors: errors.array()})
-    }
+    // if(!errors.isEmpty()) {
+    //     return res.status(422).send({errors: errors.array()})
+    // }
 
-    const house = new House({
-        CustumerID: req.body.CustumerID,
-      ListName:req.body.ListName,
-        items:req.body.items       
-    });
+    // const house = new House({
+    //     CustumerID: req.body.CustumerID,
+    //   ListName:req.body.ListName,
+    //     items:req.body.items       
+    // });
 
-    house.save()
-        .then(result => {
-            res.send({
-                message: 'House data created successfully',
-                data: result
-            })
-        })
-        .catch(err => console.log(err))
+    // house.save()
+    //     .then(result => {
+    //         res.send({
+    //             message: 'House data created successfully',
+    //             data: result
+    //         })
+    //     })
+    //     .catch(err => console.log(err))
 
 })
 
-// /api/houses
+// /api/history
 router.get('/', (req, res) => {
-    House.find()
+    History.find()
         .then(houses => {
             res.send(houses)
         })
@@ -51,6 +52,8 @@ router.get('/', (req, res) => {
 // /api/houses/ByCustumerId/id
 router.get('/ByCustumerId/:id', (req, res) => {
     const CustumerId = req.params.id;
+    
+    
     House.find({CustumerID:CustumerId})
         .then(houses => {
             res.send(houses)
@@ -110,7 +113,7 @@ router.put('/updateQuantity/:listID/:itemID/:Quantity',async (req, res)=>{
     
     try{
         
-        await House.updateOne({_id:listID,'items._id':itemID},{$set:{'items.$.quantity':Quantity}})
+        await House.updateOne({_id:listID,'items._id':itemID},{$set:{'items.$.Quantity':Quantity}})
        
         res.sendStatus(200);
     } catch (e){

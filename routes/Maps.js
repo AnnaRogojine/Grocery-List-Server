@@ -9,7 +9,7 @@ router.get('/supermarkets', async (req, res) => {
     const { lat, long } = req.query;
     console.log(lat, long)
     const {results} = (await axios.get(`https://maps.googleapis.com/maps/api/place/nearbysearch/json`,
-        { params: { location: `${lat},${long}`, radius: 1000, type: 'supermarket', key: process.env.GOOGLE_API_KEY } })).data;
+        { params: { location: `${lat},${long}`, radius: 1500, type: 'supermarket', key: process.env.GOOGLE_API_KEY } })).data;
     
     const places = results.map(result => ({
         coordinate: {

@@ -9,6 +9,8 @@ const authRoutes = require('./routes/auth');
 const verifyToken = require('./routes/verifyToken');
 const houses = require('./routes/houses');
 const maps = require('./routes/Maps');
+const OldList = require('./routes/OldList');
+const listItem = require('./routes/list');
 
 
 mongoose.connect('mongodb+srv://AnnaRo:Df2MqKasP3ii05Mz@cluster0.ymfp4.mongodb.net/auth_system?retryWrites=true&w=majority',
@@ -37,11 +39,10 @@ app.get('/api/user/profile', verifyToken , (req, res) => {
 
 //middleware:
 app.use('/api/users', authRoutes);
-
 app.use('/api/houses',houses);
 app.use('/api/maps',maps);
-
-
+app.use('/api/list', listItem);
+app.use('/api/OldList',OldList);
 
 // DB_USERNAME ='limorsh'
 // DB_PASSWORD='limorsagi123'
