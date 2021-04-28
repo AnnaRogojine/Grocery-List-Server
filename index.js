@@ -11,6 +11,7 @@ const houses = require('./routes/houses');
 const maps = require('./routes/Maps');
 const OldList = require('./routes/OldList');
 const listItem = require('./routes/list');
+const Favorite = require('./routes/favorite');
 
 
 mongoose.connect('mongodb+srv://AnnaRo:Df2MqKasP3ii05Mz@cluster0.ymfp4.mongodb.net/auth_system?retryWrites=true&w=majority',
@@ -43,6 +44,7 @@ app.use('/api/houses',houses);
 app.use('/api/maps',maps);
 app.use('/api/list', listItem);
 app.use('/api/OldList',OldList);
+app.use('/api/favorite', Favorite);
 
 // DB_USERNAME ='limorsh'
 // DB_PASSWORD='limorsagi123'

@@ -17,7 +17,7 @@ const validate = [
 
 ]
 
-// /api/OldList/:price   <==save the list in the histor
+// /api/OldList/:price   <==save the list in the history
 router.post('/:price', validate, (req, res) => {
     const price = req.params.price;
    
