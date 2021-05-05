@@ -6,11 +6,10 @@ const DEFAULT_PHOTO_URL = 'https://image.freepik.com/free-vector/supermarket-ico
 
 router.get('/supermarkets', async (req, res) => {
     try{
-    const { lat, long } = req.query;
-    console.log(lat, long)
+    const { lat, long,radius} = req.query;
+   
     const {results} = (await axios.get(`https://maps.googleapis.com/maps/api/place/nearbysearch/json`,
-        { params: { location: `${lat},${long}`, radius: 1500, type: 'supermarket', key: process.env.GOOGLE_API_KEY } })).data;
-    
+        { params: { location: `${lat},${long}`, radius: `${radius}`, type: 'supermarket', key: process.env.GOOGLE_API_KEY } })).data;
     const places = results.map(result => ({
         coordinate: {
             latitude: result.geometry.location.lat,
@@ -23,7 +22,8 @@ router.get('/supermarkets', async (req, res) => {
         isOpen: result.opening_hours && result.opening_hours.open_now,
         placeAddress: result.vicinity
     }))
-    res.send(places.slice(0,10))
+    res.send(places);
+    //res.send(places.slice(0,10))
 } catch(e){
     console.log(e)
 }

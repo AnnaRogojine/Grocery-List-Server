@@ -88,13 +88,10 @@ router.put('/ListId/:id', (req, res) => {
 ///api/houses/AddProduct/id   <====add product to list under id
 router.put('/AddProduct/:id', (req, res) => {
     const listId = req.params.id;
-
- 
+    // console.log(listId,req.body);
     House.findById(listId)
         .then(houses => {
             houses.items.push(req.body.items)
-            
-
             return houses.save();
         })
         .then(result => {
