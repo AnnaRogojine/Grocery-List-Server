@@ -26,7 +26,7 @@ router.post('/findItemByName', validateProduct, async (req, res) => {
         
         //http call to get all products info'
         const result = await axios.post('https://api.superget.co.il/', 
-        `action=GetProductsByName&product_name[]=${productName}&limit=30&api_key=ca450409788fb68cd7ecd1e5947afd0d48571d86`,
+        `action=GetProductsByName&product_name[]=${productName}&limit=30&api_key=${process.env.SUPERGET_KEY}`,
             {
                 headers: {
                     "Content-type": "application/x-www-form-urlencoded",
@@ -39,7 +39,6 @@ router.post('/findItemByName', validateProduct, async (req, res) => {
                     console.log('Data in file!');
 
                 }); 
-                console.log('data', productData.data);
                 const Pdata = JSON.stringify(productData.data);
                 if (!Pdata) return res.status(404).send({ success: false, message: 'No Data' });
 

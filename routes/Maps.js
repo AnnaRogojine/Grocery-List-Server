@@ -3,7 +3,7 @@ const axios = require('axios');
 
 
 const DEFAULT_PHOTO_URL = 'https://image.freepik.com/free-vector/supermarket-icon_24911-7803.jpg';
-
+//  /api/maps/supermarkets
 router.get('/supermarkets', async (req, res) => {
     try{
     const { lat, long,radius} = req.query;
@@ -23,10 +23,25 @@ router.get('/supermarkets', async (req, res) => {
         placeAddress: result.vicinity
     }))
     res.send(places);
-    //res.send(places.slice(0,10))
+    res.send(places.slice(0,30))
 } catch(e){
     console.log(e)
 }
 })
 
+// /api/maps/supergetmarkets 
+router.post('/supergetmarkets',async (req, res)=>{
+    
+    const {lat,long,radius} = req.body;
+    console.log(lat,long,radius);
+    try{
+        
+        const result = await axios.post('https://api.superget.co.il/', 
+        `action=GetStoresByGPS&latitude=${lat}&longitude=${long}&km_radius=${radius}&limit=30&api_key=${process.env.SUPERGET_KEY}`)
+        console.log(result.data);
+        res.send(result.data);
+    } catch (e){
+        res.send(e);
+    }
+})
 module.exports = router;

@@ -16,7 +16,7 @@ const validate = [
 
 // /api/houses
 router.post('/', validate, (req, res) => {
-
+     console.log(req.body);
     const errors = validationResult(req);
 
     if(!errors.isEmpty()) {
