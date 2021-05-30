@@ -2,6 +2,7 @@ const express = require('express');
 const app = express();
 const mongoose = require('mongoose'); // use mongoose to connect to DB
 require('dotenv').config();
+const morgan = require('morgan');
 
 app.use(express.json());
 //middleware:
@@ -27,6 +28,10 @@ mongoose.connect('mongodb+srv://AnnaRo:Df2MqKasP3ii05Mz@cluster0.ymfp4.mongodb.n
 
     })
     .catch(err => console.log(err))
+
+app.use(morgan('dev'));
+
+app.use('/uploads', express.static('uploads'))
 
 app.get('/', (req, res) => {
     res.send('welcome to home route');

@@ -6,7 +6,8 @@ const OldListSchema = new mongoose.Schema({
     items:  [{_id: String, product_name: String, product_unit_name:String,manufacturer_id:String,product_barcode:String,
         product_description:String,quantity:Number,manufacturer_name:String}],
     date:{ type: String, require: true },
-    price:{type: Number, require: true}
+    price:{type: Number, require: true},
+    uri:{type: String, require: true}
 }, {versionKey: false})
 
 module.exports = mongoose.model('OldList', OldListSchema);

@@ -31,17 +31,12 @@ router.post('/addFav/:Cid/:Hid', async (req, res) => {
     res.sendStatus(200);
 
 })
-//  /api/favorite/costumerId  <====get all collection
+//  /api/favorite/costumerId  <====get all my collection
 router.get('/:id', async (req, res) => {
     const CustumerId = req.params.id;
     const userFavorites = await Favorite.findOne({CustumerID:CustumerId})
     res.send(userFavorites.FavoriteListIds);
 });
-
-
-
-
-
 
 
 
@@ -57,7 +52,6 @@ router.delete('/delete/:Cid/:Hid', async (req, res) => {
 
 
 });
-
 
 
 
