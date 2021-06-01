@@ -52,8 +52,13 @@ router.get('/getPrice/supergetmarkets',async (req, res)=>{
         
         const result = await axios.post('https://api.superget.co.il/', 
         `action=GetPriceByProductBarCode&store_id=${store_id}&product_barcode=${product_barcode}&api_key=${process.env.SUPERGET_KEY2}`)
-        
-        res.send(result.data);
+        const {data} = result;
+
+        if(data.error_type){
+            return res.sendStatus(404);
+        }
+
+        res.send(data);
        
     } catch (e){
         res.send(e);

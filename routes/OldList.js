@@ -1,7 +1,18 @@
 const express = require('express');
 const { check, validationResult } = require('express-validator');
-const multer  = require('multer')
-const upload = multer({ dest: 'uploads/' })
+const multer  = require('multer');
+const path = require('path');
+
+var storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+      cb(null, 'uploads/')
+    },
+    filename: function (req, file, cb) {
+      cb(null, Date.now() + path.extname(file.originalname)) //Appending extension
+    }
+})
+
+const upload = multer({ storage })
 
 
 const OldList = require('../models/OldList');
@@ -79,7 +90,7 @@ router.post('/setImage/:OldlistID/', upload.single('image'),async (req, res)=>{
     const {OldlistID}= req.params;
     try{
         
-        await OldList.updateOne({_id:OldlistID},{$set:{'uri':`${process.env.SERVER_URL}/uploads/${req.file.filename}`+'.jpeg'}})
+        await OldList.updateOne({_id:OldlistID},{'uri':`${process.env.SERVER_URL}/uploads/${req.file.filename}`}, {upsert: true})
        
         res.sendStatus(200);
     } catch (e){
