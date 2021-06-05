@@ -35,7 +35,7 @@ router.post('/addFav/:Cid/:Hid', async (req, res) => {
 router.get('/:id', async (req, res) => {
     const CustumerId = req.params.id;
     const userFavorites = await Favorite.findOne({CustumerID:CustumerId})
-    res.send(userFavorites.FavoriteListIds);
+    res.send(userFavorites ? userFavorites.FavoriteListIds : []);
 });
 
 

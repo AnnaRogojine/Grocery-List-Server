@@ -33,7 +33,7 @@ const validate = [
 ]
 
 // /api/OldList/:price   <==save the list in the history
-router.post('/:price', validate, (req, res) => {
+router.post('/:price',  (req, res) => {
    
     const price = req.params.price;
    
@@ -41,9 +41,9 @@ router.post('/:price', validate, (req, res) => {
     const errors = validationResult(req);
     var d = new Date();  
     
-    if (!errors.isEmpty()) {
-        return res.status(422).send({ errors: errors.array() })
-    }
+    // if (!errors.isEmpty()) {
+    //     return res.status(422).send({ errors: errors.array() })
+    // }
 
     const historyList = new OldList({
         CustumerID: req.body.CustumerID,
@@ -62,7 +62,10 @@ router.post('/:price', validate, (req, res) => {
                 data: result
             })
         })
-        .catch(err => console.log(err))
+        .catch(err => {
+            console.log(err); 
+            res.sendStatus(500)
+        })
 
 })
 //  /api/OldList/  <====get all collection
@@ -77,7 +80,7 @@ router.get('/', (req, res) => {
 // /api/OldList/id  <====get all lists by costumer id
 router.get('/:id', (req, res) => {
     const CustumerId = req.params.id;
-    OldList.find({CustumerID:CustumerId}).sort({date: -1})
+    OldList.find({CustumerID:CustumerId}).sort({date: 1})
         .then(oldlists => {
             res.send(oldlists)
         })
@@ -91,6 +94,19 @@ router.post('/setImage/:OldlistID/', upload.single('image'),async (req, res)=>{
     try{
         
         await OldList.updateOne({_id:OldlistID},{'uri':`${process.env.SERVER_URL}/uploads/${req.file.filename}`}, {upsert: true})
+       
+        res.sendStatus(200);
+    } catch (e){
+        res.send(e);
+    }
+})
+
+// /api/OldList/setImage/:OldListid
+router.put('/setImage/:OldlistID/', upload.single('image'),async (req, res)=>{
+    const {OldlistID}= req.params;
+    try{
+        
+        await OldList.updateOne({_id:OldlistID},{'uri':``}, {upsert: false})
        
         res.sendStatus(200);
     } catch (e){

@@ -16,7 +16,7 @@ const House = require('../models/House');
 const validateInput = [
     check('productName').isLength({ min: 2 }).withMessage('Product name inValid. Must contain atleast 2 characters'),
     //email is to add another user to list
-    check('email').isEmail().withMessage('Please provide a valid email'),
+    //check('email').isEmail().withMessage('Please provide a valid email'),
 ]
 
 // route -> /api/list/findItemByName

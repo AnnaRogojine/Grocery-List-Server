@@ -36,7 +36,7 @@ router.get('/supergetmarkets',async (req, res)=>{
     try{
         
         const result = await axios.post('https://api.superget.co.il/', 
-        `action=GetStoresByGPS&latitude=${lat}&longitude=${long}&km_radius=${radius}&limit=2&api_key=${process.env.SUPERGET_KEY2}`)
+        `action=GetStoresByGPS&latitude=${lat}&longitude=${long}&km_radius=${radius}&limit=4&api_key=${process.env.SUPERGET_KEY2}`)
        
        
         res.send(result.data);
