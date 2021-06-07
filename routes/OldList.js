@@ -51,7 +51,7 @@ router.post('/:price',  (req, res) => {
         ListName: req.body.ListName,
         items:req.body.items,
         uri:req.body.uri,
-        superMarketName:req.body.SuperMarketName,
+        superMarketName:req.body.superMarketName,
         date: d,
         price: price
 
