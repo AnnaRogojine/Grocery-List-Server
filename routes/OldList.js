@@ -70,7 +70,7 @@ router.post('/:price',  (req, res) => {
         })
 
 })
-//  /api/OldList/  <====get all collection
+/////api/OldList/  <====get all collection
 router.get('/', (req, res) => {
     
     OldList.find({})
