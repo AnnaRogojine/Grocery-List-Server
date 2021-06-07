@@ -2,6 +2,7 @@ const express = require('express');
 const { check, validationResult } = require('express-validator');
 const multer  = require('multer');
 const path = require('path');
+const { runInNewContext } = require('vm');
 
 var storage = multer.diskStorage({
     destination: function (req, file, cb) {
@@ -50,6 +51,7 @@ router.post('/:price',  (req, res) => {
         ListName: req.body.ListName,
         items:req.body.items,
         uri:req.body.uri,
+        superMarketName:req.body.SuperMarketName,
         date: d,
         price: price
 
