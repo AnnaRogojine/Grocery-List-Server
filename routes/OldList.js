@@ -21,22 +21,12 @@ const { route } = require('./Maps');
 
 const router = express.Router();
 
-const validate = [
-    check('CustumerID').exists(),
-    check('CustumerID.*').notEmpty().withMessage('No id provided'),
 
-    check('ListName')
-        .isLength({ min: 1 })
-        .withMessage('Name field is empity'),
-
-    check('price').exists(),
-
-]
-
-// /api/OldList/:price   <==save the list in the history
-router.post('/:price',  (req, res) => {
+// /api/OldList/:price/:superMarketName  <==save the list in the history
+router.post('/:price/:superMarketName',  (req, res) => {
    
     const price = req.params.price;
+    const superMarketName=req.params.superMarketName
    
     console.log("I ame here:",price);
     const errors = validationResult(req);
@@ -51,7 +41,7 @@ router.post('/:price',  (req, res) => {
         ListName: req.body.ListName,
         items:req.body.items,
         uri:req.body.uri,
-        superMarketName:req.body.superMarketName,
+        superMarketName:superMarketName,
         date: d,
         price: price
 
