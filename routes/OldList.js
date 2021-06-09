@@ -81,7 +81,7 @@ router.get('/:id', (req, res) => {
 
 
 // /api/OldList/setImage/:OldListid
-router.post('/setImage/:OldlistID/', upload.single('image'),async (req, res)=>{
+router.put('/setImage/:OldlistID/', upload.single('image'),async (req, res)=>{
     const {OldlistID}= req.params;
     try{
         
