@@ -85,7 +85,7 @@ router.put('/setImage/:OldlistID/', upload.single('image'),async (req, res)=>{
     const {OldlistID}= req.params;
     try{
         
-        await OldList.updateOne({_id:OldlistID},{'uri':`${process.env.SERVER_URL}/uploads/${req.file.filename}`}, {upsert: true})
+        await OldList.updateOne({_id:OldlistID},{'uri':`https://grocerysmartbuy.herokuapp.com/uploads/${req.file.filename}`}, {upsert: true})
        
         res.sendStatus(200);
     } catch (e){
